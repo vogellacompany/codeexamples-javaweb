@@ -7,3 +7,4 @@ target/
 classes
 External Plug-in Libraries/
 org.eclipse.jdt.core.prefs
+**/node_modules
