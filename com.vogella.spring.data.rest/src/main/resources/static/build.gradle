@@ -12,8 +12,6 @@ buildscript {
 
 apply plugin: 'com.moowork.node'
 
-import com.moowork.gradle.node.task.NodeTask
- 
 task webpack(type: NodeTask, dependsOn: 'npmInstall') {
   script = project.file('./node_modules/webpack/bin/webpack.js')
 }
