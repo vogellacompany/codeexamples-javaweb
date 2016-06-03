@@ -13,6 +13,7 @@
   "license": " EPL-1.0",
   "dependencies": {
     "react": "^15.1.0",
+    "react-dom": "^15.1.0",
     "rest": "^1.3.2"
   },
   "devDependencies": {
