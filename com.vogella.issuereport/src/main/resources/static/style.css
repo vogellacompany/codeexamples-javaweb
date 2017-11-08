@@ -1,0 +1,70 @@
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body{
+	font-family: sans-serif;
+}
+
+.container {
+	width: 100vw;
+	height: 100vh;
+	padding: 100px 0;
+	text-align: center;	
+	
+}
+
+.container form{
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	max-width: 350px;
+}
+
+.container form input[type="text"], .container form textarea{
+	width: 100%;
+	padding: 10px;
+	border-radius: 3px;
+	border: 1px solid #b8b8b8;
+	font-family: inherit;
+	margin-bottom: 20px;
+}
+
+.container h3{
+	margin-bottom: 20px;
+}
+
+
+.container form input[type="submit"]{
+	max-width: 250px;
+	margin: auto;
+	display: block;
+	width: 55%;
+	padding: 10px;
+	background: darkorange;
+	border: 1px solid #b8b8b8;
+	border-radius: 3px;
+	margin-top: 20px;
+	cursor: pointer;
+	
+}
+
+.issue_list table{
+	text-align: left;
+}
+
+.issue_list .desc{
+	min-width: 500px;
+}
+
+.issue_list th, .issue_list td{
+	border: 1px #b8b8b8 solid;
+	border-radius: 3px;
+	padding: 5px;
+}
+
+.issue_list .status.done:after{
+	content: '✓';
+}

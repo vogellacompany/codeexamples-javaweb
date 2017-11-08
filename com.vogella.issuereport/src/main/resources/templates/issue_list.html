@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Vogella Issuereport</title>
+	<link rel="stylesheet" href="./style.css" />
+	<meta charset="UTF-8" />
+	
+</head>
+<body>
+
+	<div class="container issue_list">
+		<table>
+			<tr>
+				<th>Id</th>
+				<th>Url</th>
+				<th class="desc">Description</th>
+				<th>Done</th>
+				<th>Created</th>
+			</tr>
+			<th:block th:each="issue : ${issues}">
+
+
+				<tr>
+					<td th:text="${issue.id}">...</td>
+					<td ><a th:href="@{${issue.url}}" th:text="${issue.url}"></a></td>
+					<td th:text="${issue.description}">...</td>
+					<td><span class="status" th:classappend="${issue.done} ? done : pending"></span></td>
+					<td th:text="${issue.created}">...</td>					
+				</tr>
+			</th:block>
+		
+		</table>
+	
+	</div>
+</body>
+</html>
