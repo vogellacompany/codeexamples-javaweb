@@ -53,16 +53,29 @@ body{
 
 .issue_list table{
 	text-align: left;
+	border-collapse: collapse;
+	border: 1px #b8b8b8 solid;
+	margin: auto;
 }
 
 .issue_list .desc{
 	min-width: 500px;
 }
 
-.issue_list th, .issue_list td{
-	border: 1px #b8b8b8 solid;
-	border-radius: 3px;
+.issue_list td, .issue_list th{
+	border-bottom: 1px #b8b8b8 solid;
+	border-top: 1px #b8b8b8 solid;
 	padding: 5px;
+}
+
+.issue_list tr{
+	height: 35px;
+	transition: background .25s;
+	
+}
+
+.issue_list tr:hover{
+	background: #eee;
 }
 
 .issue_list .status.done:after{

@@ -27,6 +27,7 @@ public class RouteController {
 	public ModelAndView submitReport(@ModelAttribute IssueReport issueReport) throws Exception{
 		IssueReport result = this.issueRepository.save(issueReport);
 		ModelAndView modelAndView = new ModelAndView("issue_report");
+		modelAndView.addObject("submitted", true);
 		modelAndView.addObject("issuereport", result);
 		
 		return modelAndView;
@@ -35,7 +36,7 @@ public class RouteController {
 	@GetMapping("/issues")
 	public ModelAndView getIssues() {
 		ModelAndView modelAndView = new ModelAndView("issue_list");
-		modelAndView.addObject("issues", this.issueRepository.findAll());
+		modelAndView.addObject("issues", this.issueRepository.findAllButPrivate());
 		return modelAndView;
 	}
 	

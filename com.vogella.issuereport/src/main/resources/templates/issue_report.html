@@ -24,6 +24,10 @@
 			<input type="submit" value="Submit"/> 
 		</form>
 	
+		<div class="result_message" th:if="${submitted}">
+			<h3>Your report has been submitted.</h3>
+			<p>Find all issues <a href="/issues">here</a></p>
+		</div>
 	</div>
 </body>
 </html>
