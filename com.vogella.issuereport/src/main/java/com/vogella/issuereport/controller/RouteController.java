@@ -2,6 +2,7 @@ package com.vogella.issuereport.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,27 +18,23 @@ public class RouteController {
 	IssueRepository issueRepository;
 	
 	@GetMapping("/issuereport")
-	public ModelAndView getReport() {
-		ModelAndView modelAndView = new ModelAndView("issue_report");
-		modelAndView.addObject("issuereport", new IssueReport());
-		return modelAndView;
+	public String getReport(Model model) {
+		model.addAttribute("issuereport", new IssueReport());
+		return "issuereport_form";
 	}
 	
 	@PostMapping(value="/issuereport")
-	public ModelAndView submitReport(@ModelAttribute IssueReport issueReport) throws Exception{
+	public String submitReport(@ModelAttribute IssueReport issueReport, Model model) {
 		IssueReport result = this.issueRepository.save(issueReport);
-		ModelAndView modelAndView = new ModelAndView("issue_report");
-		modelAndView.addObject("submitted", true);
-		modelAndView.addObject("issuereport", result);
-		
-		return modelAndView;
+		model.addAttribute("submitted", true);
+		model.addAttribute("issuereport", result);
+		return "issuereport_form";
 	}
 	
 	@GetMapping("/issues")
-	public ModelAndView getIssues() {
-		ModelAndView modelAndView = new ModelAndView("issue_list");
-		modelAndView.addObject("issues", this.issueRepository.findAllButPrivate());
-		return modelAndView;
+	public String getIssues(Model model) {
+		model.addAttribute("issues", this.issueRepository.findAllButPrivate());
+		return "issuereport_list";
 	}
 	
 }
