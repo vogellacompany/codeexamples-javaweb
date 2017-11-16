@@ -20,8 +20,14 @@
 				<tr>
 					<td ><a th:href="@{${issue.url}}" th:text="${issue.url}"></a></td>
 					<td th:text="${issue.description}">...</td>
-					<td><span class="status" th:classappend="${issue.done} ? done : pending"></span></td>
-					<td th:text="${issue.created}">...</td>					
+					<td>
+						<span class="status" th:classappend="${issue.done} ? done : pending"></span>
+						<form action="/admin/update" method="post" th:classappend="${issue.done} ? done : pending" th:id="'form-done-'+${issue.id}">
+							<input type="checkbox" onclick="document.getElementById('form-id').submit();"/>
+						</form>
+					</td>
+					<td th:text="${issue.created}">...</td>
+					
 				</tr>
 			</th:block>
 		</table>
