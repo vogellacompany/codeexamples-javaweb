@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 class TodoRestController {
-	
+
 	private TodoService todoService;
 
 	public TodoRestController(TodoService todoService) {
@@ -31,6 +31,11 @@ class TodoRestController {
 	@GetMapping("/getTodoById")
 	public Mono<Todo> getTodoById(long id) {
 		return todoService.getTodoById(id);
+	}
+
+	@GetMapping("/getBySummary")
+	public Flux<Todo> getBySummary(String summary) {
+		return todoService.getBySummary(summary);
 	}
 
 	@PostMapping("/newTodo")

@@ -2,6 +2,9 @@ package com.vogella.springboot2.service;
 
 import java.util.Arrays;
 
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatcher;
 import org.springframework.stereotype.Service;
 
 import com.vogella.springboot2.data.TodoRepository;
@@ -45,6 +48,19 @@ public class TodoService {
 
 	public Mono<Todo> getTodoById(long id) {
 		return todoRepository.findById(id);
+	}
+
+	public Flux<Todo> getBySummary(String textInSummary) {
+		return todoRepository.findBySummaryContainingIgnoreCase(textInSummary);
+	}
+
+	public Mono<Todo> findTodoByExample(Todo todo) {
+		ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreCase()
+				.withMatcher("summary", GenericPropertyMatcher::contains)
+				.withMatcher("description", GenericPropertyMatcher::contains)
+				.withMatcher("done", GenericPropertyMatcher::exact);
+		Example<Todo> example = Example.of(todo, matcher);
+		return todoRepository.findOne(example);
 	}
 
 	public Mono<Todo> newTodo(Todo todo) {
