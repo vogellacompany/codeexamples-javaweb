@@ -1,21 +1,26 @@
 package com.vogella.springboot2.service;
 
+import java.util.Arrays;
+
 import org.springframework.stereotype.Service;
 
+import com.vogella.springboot2.data.TodoRepository;
 import com.vogella.springboot2.domain.Todo;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 public class TodoService {
 
-	private Flux<Todo> todos;
+	private TodoRepository todoRepository;
 
-	public TodoService() {
-		todos = createTodoModel();
+	public TodoService(TodoRepository todoRepository) {
+		this.todoRepository = todoRepository;
+		createTodoModel();
 	}
 
-	private Flux<Todo> createTodoModel() {
+	private void createTodoModel() {
 		Todo todo = new Todo(1);
 		todo.setSummary("Learn Spring Boot 2.0");
 		todo.setDescription("Easily create modern reactive webapps with Spring Boot 2.0");
@@ -28,27 +33,25 @@ public class TodoService {
 		todo3.setSummary("Learn @RestController");
 		todo3.setDescription("Learn how to create @RestController and use rest endpoints");
 
-		return Flux.just(todo, todo2, todo3);
+		todoRepository.saveAll(Arrays.asList(todo, todo2, todo3));
 	}
 
 	public Flux<Todo> getTodos(long limit) {
 		if (-1 == limit) {
-			return todos;
+			return todoRepository.findAll();
 		}
-		return todos.take(limit);
+		return todoRepository.findAll().take(limit);
 	}
 
-	public Flux<Todo> getTodoById(long id) {
-		return todos.filter(t -> id == t.getId());
+	public Mono<Todo> getTodoById(long id) {
+		return todoRepository.findById(id);
 	}
 
-	public Flux<Todo> newTodo(Todo todo) {
-		todos = todos.mergeWith(Flux.just(todo));
-		return todos;
+	public Mono<Todo> newTodo(Todo todo) {
+		return todoRepository.save(todo);
 	}
 
-	public Flux<Todo> deleteTodo(int id) {
-		todos = todos.filter(todo -> todo.getId() != id);
-		return todos;
+	public Mono<Void> deleteTodo(long id) {
+		return todoRepository.deleteById(id);
 	}
 }

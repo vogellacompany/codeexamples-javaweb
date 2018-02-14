@@ -12,6 +12,7 @@ import com.vogella.springboot2.domain.Todo;
 import com.vogella.springboot2.service.TodoService;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 class TodoRestController {
@@ -28,17 +29,17 @@ class TodoRestController {
 	}
 
 	@GetMapping("/getTodoById")
-	public Flux<Todo> getTodoById(long id) {
+	public Mono<Todo> getTodoById(long id) {
 		return todoService.getTodoById(id);
 	}
 
 	@PostMapping("/newTodo")
-	public Flux<Todo> newTodo(@RequestBody Todo todo) {
+	public Mono<Todo> newTodo(@RequestBody Todo todo) {
 		return todoService.newTodo(todo);
 	}
 
 	@DeleteMapping("/deleteTodo/{id}")
-	public Flux<Todo> deleteTodo(@PathVariable("id") int id) {
+	public Mono<Void> deleteTodo(@PathVariable("id") int id) {
 		return todoService.deleteTodo(id);
 	}
 }
