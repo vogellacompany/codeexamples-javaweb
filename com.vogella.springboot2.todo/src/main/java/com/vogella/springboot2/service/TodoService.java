@@ -36,7 +36,7 @@ public class TodoService {
 		todo3.setSummary("Learn @RestController");
 		todo3.setDescription("Learn how to create @RestController and use rest endpoints");
 
-		todoRepository.saveAll(Arrays.asList(todo, todo2, todo3));
+		todoRepository.saveAll(Arrays.asList(todo, todo2, todo3)).subscribe();
 	}
 
 	public Flux<Todo> getTodos(long limit) {
