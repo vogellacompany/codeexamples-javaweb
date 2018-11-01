@@ -30,8 +30,8 @@ class TodoRestController {
 		return todoService.getTodos(limit);
 	}
 
-	@GetMapping("/search")
-	public Mono<Todo> getTodoById(long id) {
+	@GetMapping("/{id}")
+	public Mono<Todo> getTodoById(@PathVariable("id") long id) {
 		return todoService.getTodoById(id);
 	}
 
