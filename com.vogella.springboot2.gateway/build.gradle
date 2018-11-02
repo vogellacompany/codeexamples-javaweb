@@ -1,9 +1,10 @@
 buildscript {
 	ext {
-		springBootVersion = '2.1.0.RELEASE'
+		springBootVersion = '2.1.0.M3' // https://github.com/spring-cloud/spring-cloud-gateway/issues/577#issuecomment-425898101
 	}
 	repositories {
 		mavenCentral()
+		maven { url "https://repo.spring.io/milestone" }		
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -15,7 +16,7 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-group = 'com.vogella.springboot2.authserver'
+group = 'com.vogella.springboot2.gateway'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
@@ -27,22 +28,22 @@ repositories {
 
 ext {
 	springCloudVersion = 'Greenwich.M1'
+	springSecurityVersion = '5.1.1.RELEASE'
 }
 
 dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-actuator')
+	implementation('org.springframework.boot:spring-boot-starter-webflux')
+	implementation('org.springframework.cloud:spring-cloud-starter')
+	implementation('org.springframework.cloud:spring-cloud-starter-gateway')
 	implementation('org.springframework.boot:spring-boot-starter-security')
-	implementation('org.springframework.boot:spring-boot-starter-web')
-	implementation('org.springframework.cloud:spring-cloud-starter-oauth2')
-//	implementation('com.nimbusds:nimbus-jose-jwt')
-	compile 'com.nimbusds:nimbus-jose-jwt:6.2'
+	implementation('org.springframework.security:spring-security-oauth2-resource-server')
+	implementation('org.springframework.security:spring-security-oauth2-jose')
+	runtime group: 'com.nimbusds', name: 'oauth2-oidc-sdk', version: '6.1.1'
 	
-	compile 'javax.xml.bind:jaxb-api'
-	compile 'com.sun.xml.bind:jaxb-core'
-	compile 'com.sun.xml.bind:jaxb-impl'
-	
+//	implementation('org.springframework.cloud:spring-cloud-starter-oauth2')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
-	testImplementation('org.springframework.security:spring-security-test')
+	testImplementation('io.projectreactor:reactor-test')
 }
 
 dependencyManagement {
