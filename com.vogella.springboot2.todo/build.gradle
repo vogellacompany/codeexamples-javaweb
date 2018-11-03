@@ -15,6 +15,7 @@ buildscript {
 plugins {
   id "com.github.ben-manes.versions" version "0.20.0"
   id "org.asciidoctor.convert" version "1.5.9.1"
+  id "io.franzbecker.gradle-lombok" version "1.14"
 }
 
 apply plugin: 'java'
@@ -34,6 +35,9 @@ repositories {
 	maven { url "https://repo.spring.io/milestone" }
 }
 
+ext {
+	snippetsDir = file('build/generated-snippets')
+}
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-actuator')
@@ -42,16 +46,11 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-webflux')
 	// compile('org.springframework.boot:spring-boot-starter-security')
 	
-	compileOnly('org.projectlombok:lombok')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.2.RELEASE' 
     testCompile('org.springframework.restdocs:spring-restdocs-webtestclient')
-	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.2.RELEASE'
 	testCompile('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
 	testCompile('io.projectreactor:reactor-test')
-}
-
-ext {
-	snippetsDir = file('build/generated-snippets')
 }
 
 test {
@@ -61,6 +60,7 @@ test {
 asciidoctor {
 	inputs.dir snippetsDir
 	dependsOn test
+	attributes 'projectdir' : project.projectDir.path
 }
 
 bootJar {
