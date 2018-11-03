@@ -1,6 +1,8 @@
 package com.vogella.springboot2.controller;
 
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.document;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.documentationConfiguration;
 
 import org.junit.Before;
@@ -18,6 +20,7 @@ import com.vogella.springboot2.domain.Todo;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+// TODO Make exercise to add org.springframework.restdocs.request.RequestDocumentation and others to favorites.
 public class RestControllerTest {
 
 	// https://docs.spring.io/spring-restdocs/docs/2.0.2.RELEASE/reference/html5/
@@ -38,7 +41,7 @@ public class RestControllerTest {
 
 	@Test
 	public void shouldReturnDefaultMessage() throws Exception {
-		this.webTestClient.get().uri("/todo/1").exchange().expectStatus().isOk().expectBodyList(Todo.class)
-				.consumeWith(document("sample"));
+		this.webTestClient.get().uri("/todo/{id}", 1).exchange().expectStatus().isOk().expectBodyList(Todo.class)
+				.consumeWith(document("sample", pathParameters(parameterWithName("id").description("The id of the Todo entity"))));
 	}
 }
