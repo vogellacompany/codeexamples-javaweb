@@ -14,6 +14,7 @@ buildscript {
 
 plugins {
   id "com.github.ben-manes.versions" version "0.20.0"
+  id "org.asciidoctor.convert" version "1.5.9.1"
 }
 
 apply plugin: 'java'
@@ -23,7 +24,9 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'com.vogella'
 version = '0.0.1-SNAPSHOT'
+
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
 	mavenCentral()
@@ -41,6 +44,32 @@ dependencies {
 	
 	compileOnly('org.projectlombok:lombok')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.restdocs:spring-restdocs-webtestclient')
+	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.2.RELEASE'
 	testCompile('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
 	testCompile('io.projectreactor:reactor-test')
+}
+
+ext {
+	snippetsDir = file('build/generated-snippets')
+}
+
+test {
+	outputs.dir snippetsDir
+}
+
+asciidoctor {
+	inputs.dir snippetsDir
+	dependsOn test
+}
+
+bootJar {
+	dependsOn asciidoctor
+	from ("${asciidoctor.outputDir}/html5") {
+		into 'static/docs'
+	}
+}
+
+wrapper {
+	gradleVersion = '4.10.2'
 }
