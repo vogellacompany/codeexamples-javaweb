@@ -1,0 +1,40 @@
+= Spring REST Docs with WebTestClient
+Simon Scholz (c) 2018 vogella GmbH;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+
+Application demonstrating how to use Spring REST Docs with Spring Framework's
+WebTestClient.
+
+cURL request:
+
+include::{snippets}/sample/curl-request.adoc[]
+
+HTTPie request:
+
+include::{snippets}/sample/httpie-request.adoc[]
+
+HTTP request:
+
+include::{snippets}/sample/http-request.adoc[]
+
+Request body:
+
+IMPORTANT: The following snippet is empty because it does not have any request body.
+
+include::{snippets}/sample/request-body.adoc[]
+
+HTTP response:
+
+include::{snippets}/sample/http-response.adoc[]
+
+Response body:
+
+include::{snippets}/sample/response-body.adoc[]
+
+Path Parameters:
+
+include::{snippets}/sample/path-parameters.adoc[]
+
+
