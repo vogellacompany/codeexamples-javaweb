@@ -19,7 +19,7 @@ public class ReactorIOTests {
 
 	private BeerImpl astra;
 	private Mono<Beer> astraMono;
-	private Mono<Object> flensburgerMono;
+	private Mono<Beer> flensburgerMono;
 
 	private Flux<Beer> beerFlux1;
 	private Flux<Beer> beerFlux2;
