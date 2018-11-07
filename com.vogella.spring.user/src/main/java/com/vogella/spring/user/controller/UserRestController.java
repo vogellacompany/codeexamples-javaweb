@@ -32,7 +32,7 @@ class UserRestController {
 
 	@GetMapping("/{id}")
 	public Mono<User> getUserById(@PathVariable("id") long id) {
-		return userService.getUserById(id);
+		return userService.findUserById(id);
 	}
 
 	@PostMapping

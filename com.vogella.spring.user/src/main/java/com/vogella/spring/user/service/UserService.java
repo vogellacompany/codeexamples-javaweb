@@ -4,6 +4,9 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatcher;
 import org.springframework.stereotype.Service;
 
 import com.vogella.spring.user.data.UserRepository;
@@ -40,8 +43,17 @@ public class UserService {
 		return userRepository.findAll().take(limit);
 	}
 
-	public Mono<User> getUserById(long id) {
+	public Mono<User> findUserById(long id) {
 		return userRepository.findById(id);
+	}
+
+	public Mono<User> findUserByExample(User user) {
+		ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreCase()
+				.withMatcher("email", GenericPropertyMatcher::contains)
+				.withMatcher("role", GenericPropertyMatcher::contains)
+				.withMatcher("enabled", GenericPropertyMatcher::exact);
+		Example<User> example = Example.of(user, matcher);
+		return userRepository.findOne(example);
 	}
 
 	public Mono<User> newUser(User User) {
