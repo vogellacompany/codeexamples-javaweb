@@ -4,6 +4,8 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -16,6 +18,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
+	@Id
 	private long id;
 	private String userName = "";
 	private String userEmail = "";
@@ -27,4 +30,5 @@ public class User {
 	public User(long id) {
 		this.id = id;
 	}
+
 }
