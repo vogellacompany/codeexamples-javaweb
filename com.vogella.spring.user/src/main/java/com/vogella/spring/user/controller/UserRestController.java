@@ -40,24 +40,24 @@ class UserRestController {
 
 	@GetMapping
 	public Flux<User> getUsers(@RequestParam(name = "limit", required = false, defaultValue = "-1") long limit) {
-		if(-1 == limit) {
+		if (-1 == limit) {
 			return users;
 		}
 		return users.take(limit);
 	}
-	
+
 	@GetMapping("/{id}")
 	public Mono<User> getUserById(@PathVariable("id") long id) {
 		return Mono.from(users.filter(user -> id == user.getId()));
 	}
-	
+
 	@PostMapping
 	public Mono<User> newUser(@RequestBody User user) {
 		Mono<User> userMono = Mono.just(user);
 		users = users.mergeWith(userMono);
 		return userMono;
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public Mono<Void> deleteTodo(@PathVariable("id") int id) {
 		users = users.filter(user -> user.getId() != id);
