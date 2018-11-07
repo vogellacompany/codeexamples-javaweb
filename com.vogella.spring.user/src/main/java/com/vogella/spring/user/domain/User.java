@@ -20,8 +20,8 @@ public class User {
 
 	@Id
 	private long id;
-	private String userName = "";
-	private String userEmail = "";
+	private String name = "";
+	private String email = "";
 	private String password = "";
 	private List<String> roles = new ArrayList<>();
 	private Instant lastLogin = Instant.now();
