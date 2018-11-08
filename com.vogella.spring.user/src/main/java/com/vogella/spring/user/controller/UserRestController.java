@@ -35,6 +35,11 @@ class UserRestController {
 		return userService.findUserById(id);
 	}
 
+	@PostMapping("/search")
+	public Mono<User> getUserByExample(@RequestBody User user) {
+		return userService.findUserByExample(user);
+	}
+
 	@PostMapping
 	public Mono<User> newUser(@RequestBody User user) {
 		return userService.newUser(user);
