@@ -1,9 +1,5 @@
 package com.vogella.spring.user.service;
 
-import java.time.Instant;
-import java.util.Arrays;
-import java.util.Collections;
-
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatcher;
@@ -22,18 +18,6 @@ public class UserService {
 
 	public UserService(UserRepository UserRepository) {
 		this.userRepository = UserRepository;
-		createUserModel();
-	}
-
-	private void createUserModel() {
-		User user = new User(1, "Fabian Pfaff", "fabian.pfaff@vogella.com", "sdguidsdsghuds",
-				Collections.singletonList("ADMIN"), Instant.now(), true);
-		User user2 = new User(2, "Simon Scholz", "simon.scholz@vogella.com", "sdguidsdsghuds",
-				Collections.singletonList("ADMIN"), Instant.now(), false);
-		User user3 = new User(3, "Lars Vogel", "lars.vogel@vogella.com", "sdguidsdsghuds",
-				Collections.singletonList("USER"), Instant.now(), true);
-
-		userRepository.saveAll(Arrays.asList(user, user2, user3)).subscribe();
 	}
 
 	public Flux<User> getUsers(long limit) {
