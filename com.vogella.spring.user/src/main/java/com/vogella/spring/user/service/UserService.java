@@ -28,9 +28,9 @@ public class UserService {
 	private void createUserModel() {
 		User user = new User(1, "Fabian Pfaff", "fabian.pfaff@vogella.com", "sdguidsdsghuds",
 				Collections.singletonList("ADMIN"), Instant.now(), true);
-		User user2 = new User(1, "Simon Scholz", "simon.scholz@vogella.com", "sdguidsdsghuds",
+		User user2 = new User(2, "Simon Scholz", "simon.scholz@vogella.com", "sdguidsdsghuds",
 				Collections.singletonList("ADMIN"), Instant.now(), false);
-		User user3 = new User(1, "Lars Vogel", "lars.vogel@vogella.com", "sdguidsdsghuds",
+		User user3 = new User(3, "Lars Vogel", "lars.vogel@vogella.com", "sdguidsdsghuds",
 				Collections.singletonList("USER"), Instant.now(), true);
 
 		userRepository.saveAll(Arrays.asList(user, user2, user3)).subscribe();
