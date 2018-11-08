@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.server.ServerResponse;
 
 import com.vogella.spring.user.domain.User;
 
@@ -21,7 +22,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/user")
 class UserRestController {
 
-	private Flux<User> users;
+	Flux<User> users;
 
 	public UserRestController() {
 		users = createUserModel();
@@ -30,9 +31,9 @@ class UserRestController {
 	private Flux<User> createUserModel() {
 		User user = new User(1, "Fabian Pfaff", "fabian.pfaff@vogella.com", "sdguidsdsghuds",
 				Collections.singletonList("ADMIN"), Instant.now(), true);
-		User user2 = new User(1, "Simon Scholz", "simon.scholz@vogella.com", "sdguidsdsghuds",
+		User user2 = new User(2, "Simon Scholz", "simon.scholz@vogella.com", "sdguidsdsghuds",
 				Collections.singletonList("ADMIN"), Instant.now(), false);
-		User user3 = new User(1, "Lars Vogel", "lars.vogel@vogella.com", "sdguidsdsghuds",
+		User user3 = new User(3, "Lars Vogel", "lars.vogel@vogella.com", "sdguidsdsghuds",
 				Collections.singletonList("USER"), Instant.now(), true);
 
 		return Flux.just(user, user2, user3);
@@ -47,8 +48,12 @@ class UserRestController {
 	}
 
 	@GetMapping("/{id}")
-	public Mono<User> getUserById(@PathVariable("id") long id) {
-		return Mono.from(users.filter(user -> id == user.getId()));
+	public Mono<ServerResponse> getUserById(@PathVariable("id") long id) {
+		Mono<User> foundUser = Mono.from(users.filter(user -> id == user.getId()));
+		return foundUser
+				.flatMap(user -> ServerResponse.ok().body(Mono.just(user), User.class))
+				.switchIfEmpty(ServerResponse.notFound().build());
+//				.switchIfEmpty(Mono.error(new NotFoundException()));
 	}
 
 	@PostMapping
