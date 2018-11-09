@@ -1,5 +1,10 @@
 package com.vogella.spring.user.controller;
 
+import java.net.URI;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.vogella.spring.user.domain.User;
 import com.vogella.spring.user.service.UserService;
@@ -31,8 +37,10 @@ class UserRestController {
 	}
 
 	@GetMapping("/{id}")
-	public Mono<User> getUserById(@PathVariable("id") long id) {
-		return userService.findUserById(id);
+	public Mono<ResponseEntity<User>> getUserById(@PathVariable("id") long id) {
+		return userService.findUserById(id)
+				.map(user -> ResponseEntity.ok(user))
+				.switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)));
 	}
 
 	@PostMapping("/search")
@@ -41,8 +49,9 @@ class UserRestController {
 	}
 
 	@PostMapping
-	public Mono<User> newUser(@RequestBody User user) {
-		return userService.newUser(user);
+	public Mono<ResponseEntity<Object>> newUser(@RequestBody User user, ServerHttpRequest req) {
+		return userService.newUser(user)
+				.map(u -> ResponseEntity.created(URI.create(req.getPath() + "/" + u.getId())).build());
 	}
 
 	@DeleteMapping("/{id}")
