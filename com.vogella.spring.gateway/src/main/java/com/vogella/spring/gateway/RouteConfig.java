@@ -11,6 +11,9 @@ import org.springframework.context.annotation.Configuration;
 public class RouteConfig {
 	@Bean
 	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
-		return builder.routes().route("users", r -> r.path("/user/**").uri("lb://user")).build();
+		return builder.routes()
+				.route("users", r -> r.path("/user/**")
+				.uri("lb://user"))
+				.build();
 	}
 }
