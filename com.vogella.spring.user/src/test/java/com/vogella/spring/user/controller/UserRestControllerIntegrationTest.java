@@ -37,7 +37,7 @@ public class UserRestControllerIntegrationTest {
 			.consumeWith(result -> {
 				User user = result.getResponseBody();
 				assertThat(user).isNotNull();
-					assertThat(user.getName()).isEqualTo("Fabian Pfaff");
+				assertThat(user.getName()).isEqualTo("Fabian Pfaff");
 			});
 	}
 
