@@ -19,7 +19,7 @@ public class BarImpl implements Bar {
 	}
 
 	@Override
-	public void addBeer(Beer beer) {
+	public void addBeer(Beer beer, Listener listener) {
 		// TODO Auto-generated method stub
 
 	}

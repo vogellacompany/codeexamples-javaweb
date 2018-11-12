@@ -7,5 +7,11 @@ import com.vogella.spring.playground.di.Beer;
 public interface Bar {
 	public Beer getRandomBeer();
 	public List<Beer> getAllBeer();
-	public void addBeer(Beer beer);
+
+	public void addBeer(Beer beer, Listener listener);
+
+	static interface Listener {
+		void success();
+		void failure(Exception ex);
+	}
 }
