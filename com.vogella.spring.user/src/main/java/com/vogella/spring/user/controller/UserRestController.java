@@ -2,6 +2,8 @@ package com.vogella.spring.user.controller;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -49,9 +51,11 @@ class UserRestController {
 	}
 
 	@PostMapping
-	public Mono<ResponseEntity<Object>> newUser(@RequestBody User user, ServerHttpRequest req) {
-		return userService.newUser(user)
-				.map(u -> ResponseEntity.created(URI.create(req.getPath() + "/" + u.getId())).build());
+	public Mono<ResponseEntity<Object>> newUser(@RequestBody @Valid Mono<User> userMono, ServerHttpRequest req) {
+		return userMono.flatMap(user -> {
+			return userService.newUser(user)
+					.map(u -> ResponseEntity.created(URI.create(req.getPath() + "/" + u.getId())).build());
+		});
 	}
 
 	@DeleteMapping("/{id}")
