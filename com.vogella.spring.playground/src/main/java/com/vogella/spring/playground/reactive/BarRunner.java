@@ -3,8 +3,11 @@ package com.vogella.spring.playground.reactive;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.vogella.spring.playground.di.Beer;
 import com.vogella.spring.playground.di.BeerImpl;
-import com.vogella.spring.playground.reactive.Bar.Listener;
+
+import reactor.core.Disposable;
+import reactor.core.publisher.Flux;
 
 @Component
 public class BarRunner implements CommandLineRunner {
@@ -15,18 +18,18 @@ public class BarRunner implements CommandLineRunner {
 		Bar bar = new BarImpl();
 		System.out.print(bar.getRandomBeer());
 
-		bar.addBeer(new BeerImpl("Heineken"), new Listener() {
+		bar.addBeer(new BeerImpl("Heineken"));
 
-			@Override
-			public void success() {
-				System.out.print(bar.getRandomBeer());
-			}
+		Flux<Beer> allBeer = bar.getAllBeer();
+		Disposable disposable = allBeer.subscribe(beer -> {
+			System.out.println("Enjoying my delicious " + beer.getName());
+		}, error -> {
+			System.err.println("Someone broke the beer class");
+			error.printStackTrace();
+		}, () -> System.out.println("Beer's empty :-("));
 
-			@Override
-			public void failure(Exception ex) {
-				ex.printStackTrace();
-			}
-		});
+		// I have to quit drinking beer
+		disposable.dispose();
 	}
 
 }

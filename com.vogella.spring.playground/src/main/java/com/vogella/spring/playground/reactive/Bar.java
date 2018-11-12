@@ -1,17 +1,12 @@
 package com.vogella.spring.playground.reactive;
 
-import java.util.List;
-
 import com.vogella.spring.playground.di.Beer;
 
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
 public interface Bar {
-	public Beer getRandomBeer();
-	public List<Beer> getAllBeer();
-
-	public void addBeer(Beer beer, Listener listener);
-
-	static interface Listener {
-		void success();
-		void failure(Exception ex);
-	}
+	public Mono<Beer> getRandomBeer();
+	public Flux<Beer> getAllBeer();
+	public Mono<Void> addBeer(Beer beer);
 }
