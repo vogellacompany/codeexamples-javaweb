@@ -37,6 +37,7 @@ dependencies {
 	implementation('org.springframework.cloud:spring-cloud-starter-gateway')
 	implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
 	implementation('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
+	runtimeOnly('org.springframework.boot:spring-boot-devtools')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	testImplementation('io.projectreactor:reactor-test')
 }
