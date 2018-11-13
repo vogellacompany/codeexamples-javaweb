@@ -26,14 +26,24 @@ public class User {
 
 	@Id
 	private long id;
+	@Builder.Default
 	private String name = "";
+
 	@NotEmpty
 	@Email
+	@Builder.Default
 	private String email = "";
+
 	@Size(min = 8, max = 254)
+	@Builder.Default
 	private String password = "";
+
+	@Builder.Default
 	private List<String> roles = new ArrayList<>();
+
+	@Builder.Default
 	private Instant lastLogin = Instant.now();
+
 	private boolean enabled;
 	
 	public User(long id) {
