@@ -28,9 +28,15 @@ public class SampleReactorRunner implements CommandLineRunner {
 	}
 
 	public static Flux<String> createSampleFlux() {
-		return Flux.just("Simon", "Fabian", "Lars").map(String::length).publishOn(Schedulers.parallel()).distinct()
-				.delayElements(Duration.ofSeconds(2)).filter(i -> i % 2 == 0).map(String::valueOf)
-				.subscribeOn(Schedulers.single()).log();
+		return Flux.just("Simon", "Fabian", "Lars")
+				.map(String::length)
+				.publishOn(Schedulers.parallel())
+				.distinct()
+				.delayElements(Duration.ofSeconds(2))
+				.filter(i -> i % 2 == 0)
+				.map(String::valueOf)
+				.subscribeOn(Schedulers.single())
+				.log();
 	}
 
 	public static ConnectableFlux<String> createSampleHotFlux() {
