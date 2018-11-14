@@ -11,6 +11,7 @@ import javax.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.vogella.spring.user.validation.ValidRoles;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,7 +38,7 @@ public class User {
 	@Size(min = 8, max = 254)
 	@Builder.Default
 	private String password = "";
-
+	@ValidRoles
 	@Builder.Default
 	private List<String> roles = new ArrayList<>();
 
