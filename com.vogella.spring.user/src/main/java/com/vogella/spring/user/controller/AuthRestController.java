@@ -5,6 +5,7 @@ import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -53,6 +54,7 @@ public class AuthRestController {
 	}
 
 	@GetMapping("/user-info")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public Mono<Principal> authPrincipal(@AuthenticationPrincipal Principal principal) {
 		return Mono
 			.just(principal);

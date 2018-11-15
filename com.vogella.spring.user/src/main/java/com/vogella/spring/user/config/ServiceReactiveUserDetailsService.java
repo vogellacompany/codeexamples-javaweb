@@ -1,9 +1,10 @@
 package com.vogella.spring.user.config;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,9 @@ public class ServiceReactiveUserDetailsService implements ReactiveUserDetailsSer
 
 	@Override
 	public Mono<UserDetails> findByUsername(String username) {
-		return userService.findUserByEmail(username).map(CustomUserDetails::new);
+		return userService
+			.findUserByEmail(username)
+			.map(CustomUserDetails::new);
 	}
 
 	static class CustomUserDetails extends User implements UserDetails {
@@ -37,7 +40,11 @@ public class ServiceReactiveUserDetailsService implements ReactiveUserDetailsSer
 
 		@Override
 		public Collection<? extends GrantedAuthority> getAuthorities() {
-			return AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN");
+			return getRoles()
+				.stream()
+				.map(authority -> new SimpleGrantedAuthority(authority))
+				.collect(Collectors
+					.toList());
 		}
 
 		@Override
