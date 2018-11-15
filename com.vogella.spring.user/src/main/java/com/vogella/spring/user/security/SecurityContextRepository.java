@@ -1,4 +1,4 @@
-package com.vogella.spring.user.config;
+package com.vogella.spring.user.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

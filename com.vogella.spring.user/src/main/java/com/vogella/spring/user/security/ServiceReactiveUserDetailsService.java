@@ -1,4 +1,4 @@
-package com.vogella.spring.user.config;
+package com.vogella.spring.user.security;
 
 import java.util.Collection;
 import java.util.stream.Collectors;

@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vogella.spring.user.config.JWTUtil;
 import com.vogella.spring.user.domain.User;
+import com.vogella.spring.user.security.JWTUtil;
 
 import reactor.core.publisher.Mono;
 

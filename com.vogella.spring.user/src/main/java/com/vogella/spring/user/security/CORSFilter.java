@@ -1,4 +1,4 @@
-package com.vogella.spring.user.config;
+package com.vogella.spring.user.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.config.CorsRegistry;
