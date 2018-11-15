@@ -31,6 +31,10 @@ public class UserService {
 		return userRepository.findById(id);
 	}
 
+	public Mono<User> findUserByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+
 	public Mono<User> findUserByExample(User user) {
 		ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreCase()
 				.withMatcher("email", GenericPropertyMatcher::contains)
@@ -47,4 +51,5 @@ public class UserService {
 	public Mono<Void> deleteUser(long id) {
 		return userRepository.deleteById(id);
 	}
+
 }

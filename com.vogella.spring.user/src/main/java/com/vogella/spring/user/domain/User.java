@@ -25,6 +25,16 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
+	public User(User user) {
+		this.id = user.id;
+		this.name = user.name;
+		this.email = user.email;
+		this.password = user.password;
+		this.roles = user.roles;
+		this.lastLogin = user.lastLogin;
+		this.enabled = user.enabled;
+	}
+
 	@Id
 	private long id;
 	@Builder.Default
