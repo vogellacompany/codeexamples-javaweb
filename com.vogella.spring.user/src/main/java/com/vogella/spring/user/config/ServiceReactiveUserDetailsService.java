@@ -59,11 +59,5 @@ public class ServiceReactiveUserDetailsService implements ReactiveUserDetailsSer
 		public boolean isCredentialsNonExpired() {
 			return true;
 		}
-
-		@Override
-		public boolean isEnabled() {
-			return super.isEnabled();
-		}
 	}
-
 }
