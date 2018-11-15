@@ -16,10 +16,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JWTUtil {
 
-	@Value("${springbootwebfluxjjwt.jjwt.secret}")
+	@Value("${jwt.secret}")
 	private String secret;
 	
-	@Value("${springbootwebfluxjjwt.jjwt.expiration}")
+	@Value("${jwt.expiration}")
 	private String expirationTime;
 	
 	public Claims getAllClaimsFromToken(String token) {
@@ -63,5 +63,4 @@ public class JWTUtil {
 	public Boolean validateToken(String token) {
 		return !isTokenExpired(token);
 	}
-
 }
