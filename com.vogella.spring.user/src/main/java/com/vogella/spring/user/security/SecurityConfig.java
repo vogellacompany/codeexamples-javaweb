@@ -39,6 +39,8 @@ public class SecurityConfig {
 			.permitAll()
 			.pathMatchers("/auth")
 			.permitAll()
+			.pathMatchers(HttpMethod.DELETE)
+			.hasAuthority("ADMIN")
 			.anyExchange()
 			.authenticated()
 			.and()
