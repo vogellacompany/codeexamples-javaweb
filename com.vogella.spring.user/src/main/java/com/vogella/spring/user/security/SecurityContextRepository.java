@@ -3,6 +3,7 @@ package com.vogella.spring.user.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -17,7 +18,7 @@ import reactor.core.publisher.Mono;
 public class SecurityContextRepository implements ServerSecurityContextRepository{
 	
 	@Autowired
-	private AuthenticationManager authenticationManager;
+	private ReactiveAuthenticationManager authenticationManager;
 
 	@Override
 	public Mono<Void> save(ServerWebExchange swe, SecurityContext sc) {
