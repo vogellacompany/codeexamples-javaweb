@@ -28,6 +28,8 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-actuator')
 	implementation('org.springframework.boot:spring-boot-starter-data-mongodb-reactive')
 	implementation('org.springframework.boot:spring-boot-starter-webflux')
+    implementation 'io.rsocket:rsocket-core:0.11.5'
+    implementation 'io.rsocket:rsocket-transport-netty:0.11.5'
 	compileOnly('org.projectlombok:lombok')
 	runtimeOnly('org.springframework.boot:spring-boot-devtools')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
