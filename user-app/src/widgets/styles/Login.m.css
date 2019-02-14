@@ -3,3 +3,15 @@
     text-align: center;
     border: 0px;
 }
+
+.root fieldset,
+.root label {
+	display: inline-block;
+	text-align: left;
+}
+
+.root button {
+	margin-top: 10px;
+    display: inline-block;
+    width: 100%;
+}
