@@ -3,6 +3,7 @@ package com.vogella.spring.user.service;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatcher;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.vogella.spring.user.data.UserRepository;
@@ -48,6 +49,7 @@ public class UserService {
 		return userRepository.save(User);
 	}
 
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public Mono<Void> deleteUser(long id) {
 		return userRepository.deleteById(id);
 	}

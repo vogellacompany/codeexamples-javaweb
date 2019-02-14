@@ -9,7 +9,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface UserRepository extends ReactiveCrudRepository<User, Long>, ReactiveQueryByExampleExecutor<User> {
-
 	Mono<User> findByEmail(String email);
 
 	Flux<User> findByEmailContainingAndRolesContainingAllIgnoreCaseAndEnabledIsTrue(String email, String role);
