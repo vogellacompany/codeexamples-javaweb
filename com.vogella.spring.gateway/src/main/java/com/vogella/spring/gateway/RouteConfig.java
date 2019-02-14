@@ -1,6 +1,10 @@
 package com.vogella.spring.gateway;
 
+import java.util.function.Function;
+
+import org.springframework.cloud.gateway.route.Route.AsyncBuilder;
 import org.springframework.cloud.gateway.route.RouteLocator;
+import org.springframework.cloud.gateway.route.builder.PredicateSpec;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,10 +15,13 @@ public class RouteConfig {
 	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 		return builder.routes()
 				.route("user",
-						r -> r.path("/user/**")
-								.filters(f -> f.hystrix(c -> c.setName("fallback")
-										.setFallbackUri("forward:/fallback")))
-								.uri("lb://user"))
+						new Function<PredicateSpec, AsyncBuilder>() {
+							@Override
+							public AsyncBuilder apply(PredicateSpec r) {
+								return r.path("/user/**")
+										.uri("lb://user");
+							}
+						})
 				.build();
 	}
 }
