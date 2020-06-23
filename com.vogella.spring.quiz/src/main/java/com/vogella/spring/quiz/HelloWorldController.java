@@ -10,7 +10,7 @@ public class HelloWorldController {
     @RequestMapping("/")
     @ResponseBody
     String index() {
-        return "Hello.. World!";
+        return "Testing API for Flutter Quiy App";
     }
 
 }

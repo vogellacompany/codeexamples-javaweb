@@ -1,4 +1,5 @@
 package com.vogella.spring.quiz.entities;
+import com.vogella.spring.quiz.repositories.UserRepository;
 
 import java.sql.Date;
 import javax.persistence.Entity;
@@ -7,16 +8,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
+
 @Entity
 @Table(name = "user")
 public class User {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id @GeneratedValue(generator="system-uuid")
+	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	private String email;
 	private long userId;
-	private String[] courseTaken;
+	private int[] courseTaken;
 	
 	public User() {}
+	
+	public User(String email, long userId, int[] courses) {
+		this.email = email;
+		this.userId = userId;
+		this.courseTaken = courses;
+	}
 
 	public String getEmail() {
 		return email;
@@ -34,11 +46,13 @@ public class User {
 		this.userId = userId;
 	}
 
-	public String[] getCourseTaken() {
+	public int[] getCourseTaken() {
 		return courseTaken;
 	}
 
-	public void setCourseTaken(String[] courseTaken) {
+	public void setCourseTaken(int[] courseTaken) {
 		this.courseTaken = courseTaken;
 	}
+	
+	
 }
