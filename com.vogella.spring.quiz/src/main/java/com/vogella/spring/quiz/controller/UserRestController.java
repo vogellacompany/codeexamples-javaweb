@@ -53,10 +53,12 @@ public class UserRestController {
         
         having error: 'java.lang.String' to required type 'java.util.Optional
     } */
-	 public User getUsers(@PathVariable("userId") Long userId) {
-		//User user = userRepository.findByUserId(userId);
-		//import java.util.Optional; not working
-        return this.userRepository.findByUserId(userId);
+	 public ResponseEntity<User> getUsers(@PathVariable("userId") Optional<User> userOptional) {
+		if (!userOptional.isPresent() ) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
+		
+		return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
       }
 	
 	@PostMapping("/user")

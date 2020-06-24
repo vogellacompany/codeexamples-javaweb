@@ -16,9 +16,9 @@ import org.springframework.context.event.EventListener;
 @Entity
 @Table(name = "user")
 public class User {
-	@Id @GeneratedValue(generator="system-uuid")
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	private String email;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long userId;
 	private int[] courseTaken;
 	
