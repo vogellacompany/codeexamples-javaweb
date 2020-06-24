@@ -40,7 +40,7 @@ public class QuestionRestController {
 	
 	@GetMapping("/{questionId}")
 	public Question getQuestion(@PathVariable("questionId") long questionId) {
-		return this.questionRepo.findByQuestinId(questionId);
+		return this.questionRepo.findByQuestionId(questionId);
 	}
 	
 	@PostMapping("/question")
