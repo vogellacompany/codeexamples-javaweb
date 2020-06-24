@@ -10,7 +10,11 @@ sourceCompatibility = '1.8'
 
 repositories {
 	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
 }
+
+ext["spring-data-releasetrain.version"] = "Neumann-BUILD-SNAPSHOT"
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -21,7 +25,7 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
 	runtime('org.springframework.boot:spring-boot-devtools')
 	runtime('com.h2database:h2')
-	implementation("org.springframework.boot:spring-boot-starter-validation:2.3.0.RELEASE")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
 }
 
 test {
