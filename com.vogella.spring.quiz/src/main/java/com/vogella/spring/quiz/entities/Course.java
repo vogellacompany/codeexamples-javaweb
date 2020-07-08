@@ -2,6 +2,7 @@ package com.vogella.spring.quiz.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,12 +11,12 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "course")
 public class Course {
-	@Id @GeneratedValue(generator="system-uuid")
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	private String courseName;
 	private int[] quiz;
 	private double progress;
 	private String info;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long courseId;
 	
 	public Course() {}

@@ -41,24 +41,21 @@ public class UserRestController {
     }
 	
 	@GetMapping("/{userId}")
-	/*public ResponseEntity<User> getUser(@PathVariable("userId") Optional<User> userOptional) {
-		String[] courses = {"java"}; 
+	 public ResponseEntity<User> getUsers(@PathVariable("userId") Optional<User> userOptional) {
+		int[] courses = {1}; 
 		User user = new User("cxu@vogella.com", 1, courses);
         this.userRepository.save(user);
-		if (!userOptional.isPresent() ) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
-
-        return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
-        
-        having error: 'java.lang.String' to required type 'java.util.Optional
-    } */
-	 public ResponseEntity<User> getUsers(@PathVariable("userId") Optional<User> userOptional) {
-		if (!userOptional.isPresent() ) {
-    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    	}
+        String e = "cxu@vogella.com";
+        int[] courses2 = {1, 2, 3}; 
+		User user2 = new User(e, 2, courses2);
+        user = this.userRepository.save(user2);
 		
-		return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
+		/*
+		if (!userOptional.isPresent() ) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
+		*/
+		return new ResponseEntity<>(userRepository.findByUserId(user.getUserId()), HttpStatus.OK);
       }
 	
 	@PostMapping("/user")
