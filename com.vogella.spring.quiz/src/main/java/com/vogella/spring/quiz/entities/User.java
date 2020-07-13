@@ -18,7 +18,7 @@ import org.springframework.context.event.EventListener;
 public class User {
 	private String email;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long userId;
 	private int[] courseTaken;
 	

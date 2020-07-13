@@ -32,7 +32,7 @@ public class UserRestController {
 	@EventListener
     public void appReady(ApplicationReadyEvent event) {
 		int[] courses = {1}; 
-		User user = new User("cxu@vogella.com", 1, courses);
+		User user = new User("cxu@vogella.", 1, courses);
         this.userRepository.save(user);
         String e = "cxu@vogella.com";
         int[] courses2 = {1, 2}; 
@@ -46,10 +46,11 @@ public class UserRestController {
 		User user = new User("cxu@vogella.com", 1, courses);
         this.userRepository.save(user);
         String e = "cxu@vogella.com";
-        int[] courses2 = {1, 2, 3}; 
+        int[] courses2 = {1, 2, 3, 4}; 
 		User user2 = new User(e, 2, courses2);
         user = this.userRepository.save(user2);
-		
+        User user3 = new User(e, 2, courses2);
+        user = this.userRepository.save(user3);
 		/*
 		if (!userOptional.isPresent() ) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
