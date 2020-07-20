@@ -1,33 +1,39 @@
 package com.vogella.spring.quiz.entities;
-import com.vogella.spring.quiz.repositories.UserRepository;
 
-import java.sql.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Column;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 
 @Entity
 @Table(name = "user")
 public class User {
+	@Column(nullable = false)
 	private String email;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long userId;
-	private int[] courseTaken;
+	private int[] courseTaken;	
+	@Column(nullable = false)
+	private String userName;
 	
 	public User() {}
 	
-	public User(String email, long userId, int[] courses) {
+	public User(String email, int[] courses, String newUserName) {
 		this.email = email;
-		this.userId = userId;
 		this.courseTaken = courses;
+		this.userName = newUserName;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getEmail() {

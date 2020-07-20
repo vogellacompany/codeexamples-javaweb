@@ -6,8 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
 @Entity
 @Table(name = "quiz")
 public class Quiz {
@@ -19,16 +17,25 @@ public class Quiz {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long quizId;
 	private int result;
+	private int parentCourse;
+	private boolean finished;
+	private int[] answerList;
+	private int[] correctList;
+	
 	
 	public Quiz(){}
 	
-	public Quiz(String newName, int[] newQ, double newprogress, int numT, long id, int reuslt){
+	public Quiz(String newName, int[] newQ, double newprogress, int numT, int newResult,
+			int parent, boolean finish, int[] answerL, int[] correctL){
 	    this.name = newName;
 	    this.questions = newQ;
 	    this.progress = newprogress;
 	    this.totalNum = numT;
-	    this.quizId = id;
-	    this.result = result;
+	    this.result = newResult;
+	    this.parentCourse = parent;
+	    this.finished = finish;
+	    this.answerList = answerL;
+	    this.correctList = correctL;
 	  }
 
 	public String getName() {
@@ -77,6 +84,38 @@ public class Quiz {
 	
 	public void setResult(int result) {
 		this.result = result;
+	}
+
+	public int getParentCourse() {
+		return parentCourse;
+	}
+
+	public void setParentCourse(int parentCourse) {
+		this.parentCourse = parentCourse;
+	}
+
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+
+	public int[] getAnswerList() {
+		return answerList;
+	}
+
+	public void setAnswerList(int[] answerList) {
+		this.answerList = answerList;
+	}
+
+	public int[] getCorrectList() {
+		return correctList;
+	}
+
+	public void setCorrectList(int[] correctList) {
+		this.correctList = correctList;
 	}
 	
 }

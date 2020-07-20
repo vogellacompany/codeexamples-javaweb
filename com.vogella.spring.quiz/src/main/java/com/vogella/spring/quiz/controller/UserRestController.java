@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,32 +32,26 @@ public class UserRestController {
 	
 	@EventListener
     public void appReady(ApplicationReadyEvent event) {
-		int[] courses = {1}; 
-		User user = new User("cxu@vogella.", 1, courses);
+		int[] courses = {1, 2}; 
+		User user = new User("cxu@vogella.com", courses, "TestUser1");
         this.userRepository.save(user);
         String e = "cxu@vogella.com";
         int[] courses2 = {1, 2}; 
-		User user2 = new User(e, 2, courses2);
-        this.userRepository.save(user2);
+		User user2 = new User("testuser@vogella.com", courses2, "TestUser2");
+        user = this.userRepository.save(user2);
+        User user3 = new User("testuser@vogella.com", courses2, "TestUser3");
+        user = this.userRepository.save(user3);
     }
 	
 	@GetMapping("/{userId}")
 	 public ResponseEntity<User> getUsers(@PathVariable("userId") Optional<User> userOptional) {
-		int[] courses = {1}; 
-		User user = new User("cxu@vogella.com", 1, courses);
-        this.userRepository.save(user);
-        String e = "cxu@vogella.com";
-        int[] courses2 = {1, 2, 3, 4}; 
-		User user2 = new User(e, 2, courses2);
-        user = this.userRepository.save(user2);
-        User user3 = new User(e, 2, courses2);
-        user = this.userRepository.save(user3);
+		
 		/*
 		if (!userOptional.isPresent() ) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
 		*/
-		return new ResponseEntity<>(userRepository.findByUserId(user.getUserId()), HttpStatus.OK);
+		return new ResponseEntity<>(userOptional.get(), HttpStatus.OK);
       }
 	
 	@PostMapping("/user")
@@ -68,4 +63,21 @@ public class UserRestController {
 	public List<User> getAll(){
 		return this.userRepository.findAll();
 	}
+	
+	
+	@PutMapping("/update/{id}")
+	  User replaceEmployee(@RequestBody User newUser, @PathVariable Long id) {
+
+	    return userRepository.findById(id)
+	      .map(user -> {
+	        user.setEmail(newUser.getEmail());
+	        user.setCourseTaken(newUser.getCourseTaken());
+	        user.setUserName(newUser.getUserName());
+	        return userRepository.save(user);
+	      })
+	      .orElseGet(() -> {
+	        newUser.setUserId(id);
+	        return userRepository.save(newUser);
+	      });
+	  }
 }
