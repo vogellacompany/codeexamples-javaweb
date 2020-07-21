@@ -66,7 +66,7 @@ public class UserRestController {
 	
 	
 	@PutMapping("/update/{id}")
-	  User replaceEmployee(@RequestBody User newUser, @PathVariable Long id) {
+	  User replaceUser(@RequestBody User newUser, @PathVariable Long id) {
 
 	    return userRepository.findById(id)
 	      .map(user -> {
